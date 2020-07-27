@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build-core-and-ui:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-18.04
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # 检出代码
+    - uses: actions/checkout@v2
+
+    # 构建镜像
+    - name: Build Docker Image
+      run: |
+        docker run -v $PWD:/worker hehety/cx:latest cx worker -d
