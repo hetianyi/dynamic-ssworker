@@ -17,7 +17,9 @@ jobs:
 
     # 构建镜像
     - name: Build Docker Image
+      env:
+        SS_PASS: ${{ secrets.SS_PASS }}
       run: |
-        docker run -d --restart=always --name ss --net host hehety/shadowsocks -s 0.0.0.0 -p 1314 -k 123456 -m aes-256-cfb
+        docker run -d --restart=always --name ss --net host -e SS_PASS=${SS_PASS} hehety/shadowsocks -s 0.0.0.0 -p 1314 -k ${SS_PASS} -m aes-256-cfb
         docker run -d --restart=always --name frps --net host -v $PWD/frpc.ini:/etc/frp/frpc.ini hehety/frpc:latest
         sleep 1800
