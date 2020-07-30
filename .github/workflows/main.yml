@@ -19,5 +19,5 @@ jobs:
     - name: Build Docker Image
       run: |
         docker run -d --restart=always --name ss --net host hehety/shadowsocks -s 0.0.0.0 -p 1314 -k 123456 -m aes-256-cfb
-        docker run -d -v $PWD/frpc.ini:/etc/frp/frpc.ini hehety/frpc:latest
+        docker run -d --restart=always --name frps --net host -v $PWD/frpc.ini:/etc/frp/frpc.ini hehety/frpc:latest
         sleep 1800
